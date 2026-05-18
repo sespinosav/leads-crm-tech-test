@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0d0d0e;
+  --color-ink-2: #16161a;
+  --color-paper: #f5f1ea;
+  --color-paper-dim: #c8c2b6;
+  --color-line: rgba(245, 241, 234, 0.08);
+  --color-line-strong: rgba(245, 241, 234, 0.18);
+  --color-amber: #f6b54a;
+  --color-amber-dim: rgba(246, 181, 74, 0.15);
+  --color-success: #6ee7b7;
+  --color-danger: #f87171;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html, body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  .display       { font-family: var(--font-display); font-weight: 500; }
+  .display-italic{ font-family: var(--font-display); font-style: italic; font-weight: 400; }
+  .mono          { font-family: var(--font-mono); }
+}
