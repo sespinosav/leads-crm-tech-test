@@ -326,3 +326,18 @@ VITE_API_BASE=https://leads.example.com npm run build
 The backend has `CORS` enabled (`app.enableCors`) so the built bundle can
 be hosted anywhere — S3, Cloudflare Pages, Vercel — and still talk to the
 API.
+
+**API key**
+
+If you turn on the optional `API_KEY` on the backend, mirror it on the
+frontend so it gets sent as `x-api-key` on every request:
+
+```bash
+# web/.env.local
+VITE_API_KEY=super-secret-value
+```
+
+> Heads-up: any `VITE_*` variable is **embedded in the public bundle**.
+> Treat it as a soft gate (e.g. "don't index this dashboard"), not a true
+> secret. For a real deployment put the dashboard behind your own auth or
+> a reverse-proxy that injects the header server-side.

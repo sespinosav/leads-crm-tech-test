@@ -58,11 +58,18 @@ export interface CreateLeadInput {
 // VITE_API_BASE to the deployed API origin.
 const BASE = (import.meta.env.VITE_API_BASE ?? '') + '/api';
 
+// Optional API key — mirrors the backend's ApiKeyGuard. Set VITE_API_KEY in
+// web/.env.local (dev) or as a build-time env (prod) when the backend has
+// API_KEY configured. If unset, no header is sent and the backend treats the
+// guard as a no-op.
+const API_KEY = import.meta.env.VITE_API_KEY ?? '';
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     ...init,
     headers: {
       'Content-Type': 'application/json',
+      ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
       ...(init?.headers ?? {}),
     },
   });
