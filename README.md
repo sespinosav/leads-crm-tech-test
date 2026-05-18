@@ -242,3 +242,50 @@ Every error response follows the same shape (handled by a global filter):
 - Rate limiting (`@nestjs/throttler`)
 - Swagger / OpenAPI at `/docs`
 - Webhook endpoint (`POST /leads/webhook`)
+- **Frontend dashboard** (fullstack bonus — see below)
+
+## Frontend (fullstack bonus)
+
+The brief asked for a backend, but I'm a fullstack engineer and I enjoy
+the frontend side too — so I shipped a small dashboard on top of the API.
+It lives in [`web/`](./web) and is fully decoupled from the backend.
+
+**Stack**
+
+| | |
+| --- | --- |
+| Build tool | **Vite 6** |
+| UI | **React 19** + **TypeScript** |
+| Styling | **Tailwind CSS v4** (with `@theme` tokens, no PostCSS config) |
+| Data | **TanStack Query 5** (caching, invalidation, mutations) |
+
+**What it does**
+
+- Lists leads with **source / from / to** filters and pagination
+- Shows a **stats panel** (total, last 7 days, avg budget, by-source bars)
+- Registers new leads through a modal form (uses `POST /api/leads`)
+- Soft-deletes leads inline from the table
+- Calls the **AI summary** endpoint with the same filters and renders the
+  briefing — works out of the box thanks to the mock provider
+
+**Run it**
+
+```bash
+# 1) start the API (port 3000) as documented above
+# 2) in another terminal:
+cd web
+npm install
+npm run dev   # http://localhost:5173
+```
+
+In development the Vite proxy forwards `/api/*` and `/docs` to
+`http://localhost:3000`, so CORS is a non-issue. For production builds
+point the frontend at any host with the `VITE_API_BASE` env var:
+
+```bash
+VITE_API_BASE=https://leads.example.com npm run build
+```
+
+The backend has `CORS` enabled (`app.enableCors`) so the built bundle can
+be hosted anywhere — S3, Cloudflare Pages, Vercel — and still talk to the
+API.
