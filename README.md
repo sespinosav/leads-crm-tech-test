@@ -53,10 +53,11 @@ docker compose up --build
 # Swagger: http://localhost:3000/docs
 ```
 
-Then, in another terminal, run the seed inside the API container:
+Then, in another terminal, run the seed inside the API container
+(the production image only ships compiled JS — no `ts-node`):
 
 ```bash
-docker compose exec api npx ts-node -r tsconfig-paths/register src/database/seed.ts
+docker compose exec api npm run seed:prod
 ```
 
 ### Option B — Local Node
