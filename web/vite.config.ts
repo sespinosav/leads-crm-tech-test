@@ -9,6 +9,9 @@ export default defineConfig({
     proxy: {
       // Forward API calls to NestJS during local dev
       '/api': 'http://localhost:3000',
+      '/docs': 'http://localhost:3000',
+      '/docs-json': 'http://localhost:3000',
+      '/health': 'http://localhost:3000',
     },
   },
 });
