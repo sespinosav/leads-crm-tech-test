@@ -60,6 +60,42 @@ Then, in another terminal, run the seed inside the API container
 docker compose exec api npm run seed:prod
 ```
 
+<details>
+<summary>Example boot logs</summary>
+
+```text
+[+] Running 2/2
+ ✔ Container leads-api-db-1   Created                                       0.0s
+ ✔ Container leads-api-api-1  Recreated                                     0.2s
+Attaching to api-1, db-1
+db-1   | 2026-05-18 19:51:23.189 UTC [1] LOG:  starting PostgreSQL 16.14 on x86_64-pc-linux-musl
+db-1   | 2026-05-18 19:51:23.191 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1   | 2026-05-18 19:51:23.255 UTC [1] LOG:  database system is ready to accept connections
+api-1  | [Nest] LOG [NestFactory] Starting Nest application...
+api-1  | [Nest] LOG [InstanceLoader] TypeOrmModule dependencies initialized
+api-1  | [Nest] LOG [InstanceLoader] ThrottlerModule dependencies initialized
+api-1  | [Nest] LOG [InstanceLoader] LeadsModule dependencies initialized
+api-1  | [Nest] LOG [InstanceLoader] AiModule dependencies initialized
+api-1  | [Nest] LOG [RoutesResolver] HealthController {/api/health}
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/health, GET} route
+api-1  | [Nest] LOG [RoutesResolver] LeadsController {/api/leads}
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads, POST} route
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads, GET} route
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads/stats, GET} route
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads/:id, GET} route
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads/:id, PATCH} route
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads/:id, DELETE} route
+api-1  | [Nest] LOG [RoutesResolver] WebhookController {/api/leads/webhook}
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads/webhook, POST} route
+api-1  | [Nest] LOG [RoutesResolver] AiController {/api/leads/ai}
+api-1  | [Nest] LOG [RouterExplorer] Mapped {/api/leads/ai/summary, POST} route
+api-1  | [Nest] LOG [NestApplication] Nest application successfully started
+api-1  | 🚀 Leads API listening on http://localhost:3000 — docs at /docs
+api-1  | [Nest] LOG [OpenAiProvider] Requesting summary from gpt-4o-mini (14 leads)
+```
+
+</details>
+
 ### Option B — Local Node
 
 Requires Node 20+ and a reachable PostgreSQL 16 instance.
