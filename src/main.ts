@@ -8,6 +8,12 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Enable CORS for the bundled frontend (and any other origin in dev).
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+
   // Global pipes — DTO validation + payload transformation
   app.useGlobalPipes(
     new ValidationPipe({
