@@ -23,10 +23,19 @@
     color: var(--color-paper);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    /* tell the browser to render native widgets (selects, date pickers,
+       scrollbars) with a dark palette so <option> elements stay readable */
+    color-scheme: dark;
   }
   ::selection {
     background: var(--color-amber);
     color: var(--color-ink);
+  }
+  /* Belt-and-suspenders for Chrome/Edge which sometimes still paint the
+     dropdown list with the OS light theme. */
+  select option {
+    background-color: var(--color-ink-2);
+    color: var(--color-paper);
   }
 }
 
